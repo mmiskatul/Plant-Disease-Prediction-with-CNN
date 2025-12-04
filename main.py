@@ -34,3 +34,23 @@ def predict_image_class(model,image_path,class_indices):
     return predict_image_class
 
 
+
+#Streamlit App 
+
+upload_image =st.file_uploader("Upload an Image ... ",type=['jpg','jpeg','png']) 
+
+
+if upload_image is not None : 
+    image =Image.open(upload_image) 
+    col1,col2 =st.columns(2) 
+    
+    
+    with col1 : 
+        resised_img =image.resize((150,150)) 
+        st.image(resised_img) 
+    with col2 : 
+        if st.button('Classify'):
+            #preprocess the uploaded image and predict the class 
+            prediction =predict_image_class(model,upload_image,class_indices) 
+            st.success(f"prediction : {str(prediction)}") 
+ 
